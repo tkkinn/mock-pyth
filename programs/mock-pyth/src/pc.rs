@@ -60,13 +60,29 @@ pub struct PriceComp {
 pub enum PriceType {
     Unknown,
     Price,
-    TWAP,
-    Volatility,
 }
 
 impl Default for PriceType {
     fn default() -> Self {
         PriceType::Price
+    }
+}
+
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct Rational {
+    pub val: i64,
+    pub numer: i64,
+    pub denom: i64,
+}
+
+impl Default for Rational {
+    fn default() -> Self {
+        Rational {
+            val: 0,
+            numer: 0,
+            denom: 0,
+        }
     }
 }
 
@@ -80,20 +96,22 @@ pub struct Price {
     pub ptype: PriceType, // Price or calculation type.
     pub expo: i32,        // Price exponent.
     pub num: u32,         // Number of component prices.
-    pub unused: u32,
-    pub curr_slot: u64,        // Currently accumulating price slot.
-    pub valid_slot: u64,       // Valid slot-time of agg. price.
-    pub twap: i64,             // Time-weighted average price.
-    pub avol: u64,             // Annualized price volatility.
-    pub drv0: i64,             // Space for future derived values.
-    pub drv1: i64,             // Space for future derived values.
-    pub drv2: i64,             // Space for future derived values.
-    pub drv3: i64,             // Space for future derived values.
-    pub drv4: i64,             // Space for future derived values.
-    pub drv5: i64,             // Space for future derived values.
+    pub num_qt: u32,      // Number of quoters that make up aggregate
+    pub last_slot: u64,        // slot of last valid (not unknown) aggregate price
+    pub valid_slot: u64,       // valid slot-time of agg. price
+    pub ema_price: Rational,   // exponentially moving average price
+    pub ema_conf: Rational,    // exponentially moving average confidence interval
+    pub timestamp: i64,        // unix timestamp of aggregate price
+    pub min_pub: u8,           // min publishers for valid price
+    pub drv2: u8,              // Space for future derived values.
+    pub drv3: u16,             // Space for future derived values.
+    pub drv4: u32,             // Space for future derived values.
     pub prod: AccKey,          // Product account key.
     pub next: AccKey,          // Next Price account in linked list.
-    pub agg_pub: AccKey,       // Quoter who computed last aggregate price.
+    pub prev_slot: u64,        // valid slot of previous update
+    pub prev_price: i64,       // aggregate price of previous update with TRADING status
+    pub prev_conf: u64,        // confidence interval of previous update with TRADING status
+    pub prev_timestamp: i64,   // unix timestamp of previous aggregate with TRADING status
     pub agg: PriceInfo,        // Aggregate price info.
     pub comp: [PriceComp; 32], // Price components one per quoter.
 }

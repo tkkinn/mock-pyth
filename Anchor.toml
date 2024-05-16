@@ -6,6 +6,7 @@ skip-lint = false
 
 [programs.localnet]
 mock_pyth = "HxWaRfGzPvrFPz1UzRBEvmsK9LxK65r8Jtt195NDbg7j"
+test-contract = "8jm5jnUyUc6a55qsXFTxUSjM3doH5aCfWjwYKjuEJW53"
 
 [registry]
 url = "https://api.apr.dev"
