@@ -18,7 +18,7 @@ describe("mock-pyth", () => {
     const initialize_price = await program.methods.initialize(
       new anchor.BN(100 * 10 ** 7),
       -9,
-      new anchor.BN(100 / 10 * 10 * 9)
+      new anchor.BN(100 / 10 * 10 ** 9)
     ).accounts({
       price: priceFeed.publicKey,
     }).instruction();
@@ -43,7 +43,7 @@ describe("mock-pyth", () => {
   it("Sets price", async () => {
     const setPrice = await program.methods.setPrice(
       new anchor.BN(200 * 10 ** 7),
-      new anchor.BN(200 / 10 * 10 * 9)
+      new anchor.BN(200 / 10 * 10 ** 9)
     ).accounts({
       price: priceFeed.publicKey,
     }).instruction();
