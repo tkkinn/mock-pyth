@@ -1,11 +1,12 @@
 {
   "name": "@tkkinn/mock-pyth-sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This is a SDK for Mock Pyth Oracle",
-  "main": "./dist/index.js",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsup ./src/index.ts"
+    "build": "yarn cache clean && tsc"
   },
   "author": "",
   "license": "ISC",
