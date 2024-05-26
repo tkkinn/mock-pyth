@@ -1,6 +1,6 @@
 {
   "name": "@tkkinn/mock-pyth-sdk",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This is a SDK for Mock Pyth Oracle",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -11,10 +11,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "tsup": "^8.0.2",
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "@coral-xyz/anchor": "^0.30.0",
     "@solana/web3.js": "^1.91.8"
   }
 }
