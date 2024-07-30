@@ -1,6 +1,6 @@
 {
   "name": "@tkkinn/mock-pyth-sdk",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "This is a SDK for Mock Pyth Oracle",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",

@@ -5,7 +5,7 @@ use pc::Price;
 declare_id!("FsJ3A3u2vn5cTVofAjvy6y5kwABJAqYWpe4975bi2epH");
 
 #[program]
-pub mod mock_pyth {
+pub mod mock_pyth_push {
     use super::*;
 
     pub fn initialize(ctx: Context<Initialize>, price: i64, expo: i32, conf: u64) -> Result<()> {

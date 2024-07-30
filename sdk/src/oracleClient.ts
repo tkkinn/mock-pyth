@@ -5,6 +5,11 @@ import NodeWallet from "@coral-xyz/anchor/dist/cjs/nodewallet";
 import { OracleClientConfig } from "./oracleClientConfig";
 import idl from "./idl/mock_pyth.json";
 
+/**
+ * The client to build instruction to interact with onchain oracle
+ * 
+ * @deprecated Use the new {@link pushOracleClient} or {@link pullOracleClient} instead.
+ */
 export class oracleClient {
 	provider: AnchorProvider;
 	wallet: NodeWallet;

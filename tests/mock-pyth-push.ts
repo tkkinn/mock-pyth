@@ -1,15 +1,16 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
-import { MockPyth } from "../target/types/mock_pyth";
+import { MockPythPush } from "../target/types/mock_pyth_push";
 import { v0_pack } from "./helper";
 import { TestContract } from "../target/types/test_contract";
+import { confirmTransaction } from "@solana-developers/helpers";
 
-describe("mock-pyth", () => {
+describe("mock-pyth-push", () => {
   // Configure the client to use the local cluster.
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
 
-  const program = anchor.workspace.MockPyth as Program<MockPyth>;
+  const program = anchor.workspace.MockPythPush as Program<MockPythPush>;
   const test = anchor.workspace.TestContract as Program<TestContract>;
   const admin = anchor.Wallet.local();
   const priceFeed = anchor.web3.Keypair.generate();
@@ -31,12 +32,13 @@ describe("mock-pyth", () => {
       programId: program.programId,
     });
 
-    const readPrice = await test.methods.readPrice().accounts({
+    const readPrice = await test.methods.readPricePush().accounts({
       price: priceFeed.publicKey,
     }).instruction();
 
     const instructions = [createAccount, initialize_price, readPrice];
     const tx = await provider.connection.sendTransaction(await v0_pack(instructions, admin, priceFeed));
+    await confirmTransaction(provider.connection, tx);
     console.log("Transaction Id:", tx);
   });
 
@@ -48,7 +50,7 @@ describe("mock-pyth", () => {
       price: priceFeed.publicKey,
     }).instruction();
 
-    const readPrice = await test.methods.readPrice().accounts({
+    const readPrice = await test.methods.readPricePush().accounts({
       price: priceFeed.publicKey,
     }).instruction();
 
